@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "4e8b79db-f86d-428d-afe5-e1d8b5ca9cde",
+		"name": "TestProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getResource",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "493ec82d-e422-4161-a8e5-9d9955cf325a",
+						"exec": [
+							"pm.test(\"The response has all properties\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson.userId).to.eql(1);",
+							"    pm.expect(responseJson.title).to.eql(\"sunt aut facere repellat provident occaecati excepturi optio reprehenderit\");",
+							"    pm.expect(responseJson.body).to.eql(\"quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto\");",
+							"  ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getResources",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "667709f9-31cd-42f7-b0ff-1f90a23ae564",
+						"exec": [
+							"pm.test(\"The response has all properties\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    ",
+							"    for(var i =0;i<responseJson.length;i++){",
+							"        var record = responseJson[i];",
+							"        pm.expect(record.userId).to.be.a(\"number\");",
+							"        pm.expect(record.id).to.be.a(\"number\");",
+							"        pm.expect(record.title).to.be.a(\"string\");",
+							"        pm.expect(record.body).to.be.a(\"string\");",
+							"",
+							"    }",
+							"      ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createResource",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89b9d082-e095-45b7-9f2a-3a18232deac4",
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {",
+							"  pm.expect(pm.response.code).to.eql(201);",
+							"});",
+							"",
+							"pm.test(\"Verify response data and properties\", () => {",
+							"    const responseJson = pm.response.json();",
+							"pm.expect(responseJson.userId).to.eql(pm.iterationData.get(\"userId\"));",
+							"pm.expect(responseJson.title).to.eql(pm.iterationData.get(\"title\"));",
+							"pm.expect(responseJson.body).to.eql(pm.iterationData.get(\"body\"));",
+							"    pm.expect(responseJson.id).to.be.a(\"number\");  ",
+							"  ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json; charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"{{title}}\",\n    \"body\": \"{{body}}\",\n    \"userId\": \"{{userId}}\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateResource",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json; charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"id\":\"1\",\n    \"title\": \"foo\",\n    \"body\": \"bar\",\n    \"userId\": \"1\"\n\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patchResource",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0064f91-2b66-4d50-95a0-ff85ccef6d6e",
+						"exec": [
+							"pm.test(\"The response has all properties\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson.userId).to.eql(1);",
+							"    pm.expect(responseJson.title).to.eql(\"foo\");",
+							"    ",
+							"  ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json; charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n    \"title\": \"foo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteResource",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab419a0e-4269-4959-b259-2cbad2fdfc08",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"  pm.expect(pm.response.code).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
